@@ -7,6 +7,23 @@
           <df-hex acorde="{{acordeon.acorde}}" acorde-color="{{acordeon.cor}}" acorde-checked="Sequencia.temAcorde(acordeon)" ng-repeat="acordeon in sequencia.acordes"></df-hex>
         </div>
         <br style="clear: both;">
+        <div class="sequencia-form">
+          <p class="text-center"><strong>Criar nova sequência</strong></p>
+          <form ng-submit="Sequencia.cadastrarSequencia()">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="Sequencia.novaSequencia" placeholder="Ex.: D, A, Bm, G">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="submit" ng-disabled="Sequencia.isCriando">
+                  <span ng-if="!Sequencia.isCriando">Cadastrar</span>
+                  <span ng-if="Sequencia.isCriando">Cadastrando...</span>
+                </button>
+              </span>
+            </div>
+            <small>Separe os acordes por vírgula.</small>
+          </form>
+          <div class="alert alert-danger" ng-if="Sequencia.erroCadastro" style="margin-top: 10px;">{{Sequencia.erroCadastro}}</div>
+          <div class="alert alert-info" ng-if="Sequencia.erroCatalogo" style="margin-top: 10px;">{{Sequencia.erroCatalogo}}</div>
+        </div>
         <button class="search-results-count" ng-if="Sequencia.showSearchResultsCount" ng-click="Sequencia.goToResults()">
           <span class="glyphicon glyphicon-triangle-bottom bounce animated infinite"></span>
           <br>
@@ -39,8 +56,7 @@
 
         <div class="row row-in">
           <div class="col-sm-6 col-lg-4"
-            ng-repeat="music in Sequencia.musics | orderBy:'-popularidade'"
-            ng-hide="music.diferenca.length">
+            ng-repeat="music in Sequencia.musics | orderBy:'-popularidade'">
 
               <div class="music-card" ng-click="Sequencia.goToLirics(music)">
                 <div class="row row-in">

@@ -6,7 +6,8 @@ acordes famosas — o deciframe cruza isso com uma base de cifras e sugere
 músicas parecidas.
 
 Stack: backend Flask (Python) servindo uma API JSON + um frontend AngularJS
-estático, numa base de dados carregada de um CSV em memória (sem banco).
+estático. As músicas vêm de um CSV carregado em memória; o catálogo de
+sequências fica em SQLite (`instance/sequences.db`).
 
 ## Rodando localmente
 
@@ -14,10 +15,11 @@ estático, numa base de dados carregada de um CSV em memória (sem banco).
 
 ```
 docker build -t ciframe .
-docker run -p 8080:8080 ciframe
+docker run -p 8080:8080 -v ciframe-sequences:/app/instance ciframe
 ```
 
-Acesse [http://localhost:8080](http://localhost:8080).
+Acesse [http://localhost:8080](http://localhost:8080). O volume nomeado
+`ciframe-sequences` mantém o catálogo de sequências entre execuções do container.
 
 ### Com virtualenv
 
